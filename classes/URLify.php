@@ -3,8 +3,9 @@
 /**
  * A PHP port of URLify.js from the Django project
  * (https://github.com/django/django/blob/master/django/contrib/admin/static/admin/js/urlify.js).
- * Handles symbols from Latin languages, Greek, Turkish, Russian, Ukrainian,
- * Czech, Polish, and Latvian. Symbols it cannot transliterate
+ * Handles symbols from Latin languages, Greek, Turkish, Bulgarian, Russian,
+ * Ukrainian, Czech, Polish, Romanian, Latvian, Lithuanian, Vietnamese, Arabic,
+ * Serbian, and Azerbaijani. Symbols it cannot transliterate
  * it will simply omit.
  *
  * Usage:
@@ -51,6 +52,18 @@ class URLify {
 			'ş' => 's', 'Ş' => 'S', 'ı' => 'i', 'İ' => 'I', 'ç' => 'c', 'Ç' => 'C', 'ü' => 'u', 'Ü' => 'U',
 			'ö' => 'o', 'Ö' => 'O', 'ğ' => 'g', 'Ğ' => 'G'
 		),
+		'bg' => array( /* Bulgarian */
+			"Щ" => 'Sht', "Ш" => 'Sh', "Ч" => 'Ch', "Ц" => 'C', "Ю" => 'Yu', "Я" => 'Ya',
+			"Ж" => 'J',   "А" => 'A',  "Б" => 'B',  "В" => 'V', "Г" => 'G',  "Д" => 'D',
+			"Е" => 'E',   "З" => 'Z',  "И" => 'I',  "Й" => 'Y', "К" => 'K',  "Л" => 'L',
+			"М" => 'M',   "Н" => 'N',  "О" => 'O',  "П" => 'P', "Р" => 'R',  "С" => 'S',
+			"Т" => 'T',   "У" => 'U',  "Ф" => 'F',  "Х" => 'H', "Ь" => '',   "Ъ" => 'A',
+			"щ" => 'sht', "ш" => 'sh', "ч" => 'ch', "ц" => 'c', "ю" => 'yu', "я" => 'ya',
+			"ж" => 'j',   "а" => 'a',  "б" => 'b',  "в" => 'v', "г" => 'g',  "д" => 'd',
+			"е" => 'e',   "з" => 'z',  "и" => 'i',  "й" => 'y', "к" => 'k',  "л" => 'l',
+			"м" => 'm',   "н" => 'n',  "о" => 'o',  "п" => 'p', "р" => 'r',  "с" => 's',
+			"т" => 't',   "у" => 'u',  "ф" => 'f',  "х" => 'h', "ь" => '',   "ъ" => 'a'
+		),
 		'ru' => array ( /* Russian */
 			'а' => 'a', 'б' => 'b', 'в' => 'v', 'г' => 'g', 'д' => 'd', 'е' => 'e', 'ё' => 'yo', 'ж' => 'zh',
 			'з' => 'z', 'и' => 'i', 'й' => 'j', 'к' => 'k', 'л' => 'l', 'м' => 'm', 'н' => 'n', 'о' => 'o',
@@ -78,7 +91,7 @@ class URLify {
 			'Ź' => 'Z', 'Ż' => 'Z'
 		),
 		'ro' => array ( /* Romanian */
-			'ă' => 'a', 'â' => 'a', 'î' => 'i', 'ș' => 's', 'ț' => 't'
+			'ă' => 'a', 'â' => 'a', 'î' => 'i', 'ș' => 's', 'ț' => 't', 'Ţ' => 'T', 'ţ' => 't'
 		),
 		'lv' => array ( /* Latvian */
 			'ā' => 'a', 'č' => 'c', 'ē' => 'e', 'ģ' => 'g', 'ī' => 'i', 'ķ' => 'k', 'ļ' => 'l', 'ņ' => 'n',
@@ -101,6 +114,20 @@ class URLify {
 			'ú' => 'u', 'ù' => 'u', 'ủ' => 'u', 'ũ' => 'u', 'ụ' => 'u', 'ư' => 'u', 'ứ' => 'u', 'ừ' => 'u', 'ử' => 'u', 'ữ' => 'u', 'ự' => 'u',
 			'Ý' => 'Y', 'Ỳ' => 'Y', 'Ỷ' => 'Y', 'Ỹ' => 'Y', 'Ỵ' => 'Y', 'ý' => 'y', 'ỳ' => 'y', 'ỷ' => 'y', 'ỹ' => 'y', 'ỵ' => 'y',
 			'Đ' => 'D', 'đ' => 'd'
+		),
+		'ar' => array ( /* Arabic */
+			'أ' => 'a', 'ب' => 'b', 'ت' => 't', 'ث' => 'th', 'ج' => 'g', 'ح' => 'h', 'خ' => 'kh', 'د' => 'd',
+			'ذ' => 'th', 'ر' => 'r', 'ز' => 'z', 'س' => 's', 'ش' => 'sh', 'ص' => 's', 'ض' => 'd', 'ط' => 't',
+			'ظ' => 'th', 'ع' => 'aa', 'غ' => 'gh', 'ف' => 'f', 'ق' => 'k', 'ك' => 'k', 'ل' => 'l', 'م' => 'm',
+			'ن' => 'n', 'ه' => 'h', 'و' => 'o', 'ي' => 'y'
+		),
+		'sr' => array ( /* Serbian */
+			'ђ' => 'dj', 'ј' => 'j', 'љ' => 'lj', 'њ' => 'nj', 'ћ' => 'c', 'џ' => 'dz', 'đ' => 'dj',
+			'Ђ' => 'Dj', 'Ј' => 'j', 'Љ' => 'Lj', 'Њ' => 'Nj', 'Ћ' => 'C', 'Џ' => 'Dz', 'Đ' => 'Dj'
+		),
+		'az' => array ( /* Azerbaijani */
+			'ç' => 'c', 'ə' => 'e', 'ğ' => 'g', 'ı' => 'i', 'ö' => 'o', 'ş' => 's', 'ü' => 'u',
+			'Ç' => 'C', 'Ə' => 'E', 'Ğ' => 'G', 'İ' => 'I', 'Ö' => 'O', 'Ş' => 'S', 'Ü' => 'U'
 		)
 	);
 
@@ -214,7 +241,7 @@ class URLify {
 		$text = preg_replace ('/\b(' . join ('|', self::$remove_list) . ')\b/i', '', $text);
 
 		// if downcode doesn't hit, the char will be stripped here
-		$remove_pattern = ($file_name) ? '/[^-.\w\s]/' : '/[^-\w\s]/';
+		$remove_pattern = ($file_name) ? '/[^_\-.\-a-zA-Z0-9\s]/u' : '/[^\s_\-a-zA-Z0-9]/u';
 		$text = preg_replace ($remove_pattern, '', $text); // remove unneeded chars
 		$text = str_replace ('_', ' ', $text);             // treat underscores as spaces
 		$text = preg_replace ('/^\s+|\s+$/', '', $text);   // trim leading/trailing spaces
